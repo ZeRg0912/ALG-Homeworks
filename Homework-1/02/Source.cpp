@@ -4,11 +4,11 @@ using namespace std;
 
 int countRefs(int a[], int size, int point)
 {
-    int count;
+    int count = 0;
     int left = 0;
     int right = size - 1;
     int middle;
-    while (right > left) {
+    do {
         middle = (left + right) / 2;
         if (a[middle] > point) {
             right = middle - 1;
@@ -16,9 +16,9 @@ int countRefs(int a[], int size, int point)
         else {
             left = middle + 1;
         }
-        cout << middle << endl;;
-    }
-    return count = size - middle;
+        cout << middle << endl;
+    } while (right >= left);
+    return size - left;
 }
 
 int enterPoint() {
