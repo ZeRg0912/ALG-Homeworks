@@ -16,7 +16,6 @@ int countRefs(int a[], int size, int point)
         else {
             left = middle + 1;
         }
-        cout << middle << endl;
     } while (right >= left);
     return size - left;
 }
@@ -34,7 +33,7 @@ int enterPoint() {
         }
         else { break; }
     } while (!isdigit(point));
-
+    cout << "Точка отсчета: " << point << endl;
     return point;
 }
 
@@ -45,8 +44,7 @@ int main() {
 	const int size = 9;
 	int arr[size]{ 14, 16, 19, 32, 32, 32, 56, 69, 72 };
     int point = enterPoint();
-    cout << countRefs(arr, size, point);
-
+    cout << "Количество элементов в массиве больших, чем " << point << ": " << countRefs(arr, size, point);
 
 	return 0;
 }
