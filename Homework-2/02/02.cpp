@@ -2,7 +2,7 @@
 
 using namespace std;
 
-long long fooFibonacci(long long arrFib[], const int size)
+long long Fibonacci(long long arrFib[], const int size)
 {
     arrFib[0] = 0;
     arrFib[1] = 1;
@@ -25,10 +25,9 @@ int main() {
 
     long long* arrFib = new long long[size + 1] {};
 
-    cout << "Число Фибоначчи: " << fooFibonacci(arrFib, size) << endl;
+    cout << "Число Фибоначчи: " << Fibonacci(arrFib, size) << endl;
 
     delete[] arrFib;
-    arrFib = nullptr;
 
     return 0;
 }
