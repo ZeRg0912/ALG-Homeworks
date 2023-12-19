@@ -27,20 +27,6 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size) {
 	cout << endl;
 }
 
-int enter_data() {
-	int data;
-	do {
-		cin >> data;
-		if (cin.fail()) {
-			cout << "Введите число! Новое значение: ";
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
-		else break;
-	} while (!isdigit(data));
-	return data;
-}
-
 int enter_size() {
 	int size;
 	do {
@@ -100,8 +86,8 @@ void append_to_dynamic_array(int* &arr, int* logical_size, int* actual_size) {
 }
 
 int main() {
-	setlocale(LC_ALL, "Russian");
-	system("chsp1251");
+	setlocale(LC_ALL, "Russian"); // задаём русский текст
+	system("chcp 1251"); // настраиваем кодировку консоли
 	system("cls");
 
 	int actual_size, logical_size;
