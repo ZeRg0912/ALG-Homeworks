@@ -7,22 +7,22 @@ enum class MovementsOnThePyramid
 	Up = 1, Left = 2, Right = 3, Exit = 0
 };
 
-int root(int* arr, const int arrSize)
+int root(int* arr, int arrSize)
 {
 	return arr[0];
 }
 
-int fromIndex(int* arr, const int arrSize, const int index)
+int fromIndex(int* arr, int arrSize, int index)
 {
 	return arr[index];
 }
 
-int leftIndex(const int parentIndex)
+int leftIndex(int parentIndex)
 {
 	return (2 * parentIndex + 1);
 }
 
-int rightIndex(const int parentIndex)
+int rightIndex(int parentIndex)
 {
 	return (2 * parentIndex + 2);
 }
@@ -80,149 +80,116 @@ void PrintPyramid(int* arr, int arrSize, int* ElementsOnLevel, int Levels)
 	cout << endl;
 };
 
-void WhereAmI(int* arr, const int arrSize, int* arrStopIndex, int* ElementsOnLevel, int Levels, int chooseOfUser)
+void CurrentPosition(int* arr,  int arrSize, int* arrStopIndex, int* ElementsOnLevel, int Levels, int UserChoose)
 {
-	if (chooseOfUser == static_cast<int> (MovementsOnThePyramid::Up))
-	{
-		if (*arrStopIndex == 0)
-		{
-			std::cout << "Ошибка! У корневого элемента отсутствует родитель.\n";
-			std::cout << "Вы находитесь здесь: 0 root " << fromIndex(arr, arrSize, *arrStopIndex) << std::endl << std::endl;
+	if (UserChoose == static_cast<int> (MovementsOnThePyramid::Up)) {
+		if (*arrStopIndex == 0) {
+			cout << "Ошибка! Отсутствует родитель.\n";
+			cout << "Вы находитесь здесь: 0 root " << fromIndex(arr, arrSize, *arrStopIndex) << endl;
 			return;
 		}
-		else if (*arrStopIndex == 1)
-		{
+		else if (*arrStopIndex == 1) {
 			*arrStopIndex -= 1;
-			std::cout << "Вы находитесь здесь: 0 root " << fromIndex(arr, arrSize, *arrStopIndex) << std::endl << std::endl;
+			cout << "Ок\n";
+			cout << "Вы находитесь здесь: 0 root " << fromIndex(arr, arrSize, *arrStopIndex) << endl;
 			return;
 		}
-		else if (*arrStopIndex == 2)
-		{
-			*arrStopIndex -= 2;
-			std::cout << "Вы находитесь здесь: 0 root " << fromIndex(arr, arrSize, *arrStopIndex) << std::endl << std::endl;
-			return;
-		}
-		else if (*arrStopIndex % 2 != 0)
-		{
+		else if (*arrStopIndex % 2 != 0) {
 			int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
-
 			*arrStopIndex = parentIndex(*arrStopIndex);
 
-			std::cout << "Вы находитесь здесь: " << thisLevelOfpyramid - 1
-				<< " left(" << arr[parentIndex(*arrStopIndex)] << ") "
-				<< arr[*arrStopIndex] << std::endl << std::endl;
+			cout << "Ок\n";
+			cout << "Вы находитесь здесь: " << thisLevelOfpyramid - 1
+				 << " left(" << arr[parentIndex(*arrStopIndex)] << ") "
+				 << arr[*arrStopIndex] << endl;
 			return;
-		}
-		else
-		{
+		}		
+		else {
 			int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
-
 			*arrStopIndex = parentIndex(*arrStopIndex);
 
-			std::cout << "Вы находитесь здесь: " << thisLevelOfpyramid - 1
-				<< " right(" << arr[parentIndex(*arrStopIndex)] << ") "
-				<< arr[*arrStopIndex] << std::endl << std::endl;
+			cout << "Ок\n";
+			cout << "Вы находитесь здесь: " << thisLevelOfpyramid - 1
+				 << " right(" << arr[parentIndex(*arrStopIndex)] << ") "
+				 << arr[*arrStopIndex] << endl;
 			return;
 		};
-	};
+	}
 
-	if (chooseOfUser == static_cast<int> (MovementsOnThePyramid::Left))
-	{
-		int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
+	if (UserChoose == static_cast<int> (MovementsOnThePyramid::Left)) {
 
-		if (leftIndex(*arrStopIndex) > arrSize - 1)
-		{
-			std::cout << "Ошибка! Отсутствует левый потомок.\n";
-			std::cout << "Вы находитесь здесь: " << thisLevelOfpyramid
-				<< " left(" << arr[parentIndex(*arrStopIndex)] << ") "
-				<< arr[*arrStopIndex] << std::endl << std::endl;
+		if (leftIndex(*arrStopIndex) > arrSize - 1) {
+			int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
+			cout << "Ошибка! Отсутствует левый потомок.\n";
+			cout << "Вы находитесь здесь: " << thisLevelOfpyramid
+				 << " left(" << arr[parentIndex(*arrStopIndex)] << ") "
+				 << arr[*arrStopIndex] << endl;
 			return;
 		}
-		else
-		{
-			int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
-
+		else {
+			int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex + 1);
 			*arrStopIndex = leftIndex(*arrStopIndex);
 
-			std::cout << "Вы находитесь здесь: " << thisLevelOfpyramid + 1
-				<< " left(" << arr[parentIndex(*arrStopIndex)] << ") "
-				<< arr[*arrStopIndex] << std::endl << std::endl;
-			return;
-		};
-	};
-
-	if (chooseOfUser == static_cast<int> (MovementsOnThePyramid::Right))
-	{
-		int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
-
-		if (rightIndex(*arrStopIndex) > arrSize - 1)
-		{
-			std::cout << "Ошибка! Отсутствует правый потомок.\n";
-			std::cout << "Вы находитесь здесь: " << thisLevelOfpyramid
-				<< " right(" << arr[parentIndex(*arrStopIndex)] << ") "
-				<< arr[*arrStopIndex] << std::endl << std::endl;
+			cout << "Ок\n";
+			cout << "Вы находитесь здесь: " << thisLevelOfpyramid
+				 << " left(" << arr[parentIndex(*arrStopIndex)] << ") "
+				 << arr[*arrStopIndex] << endl;
 			return;
 		}
-		else
-		{
+	}
+
+	if (UserChoose == static_cast<int> (MovementsOnThePyramid::Right)) {
+
+		if (rightIndex(*arrStopIndex) > arrSize - 1) {
+			int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
+			cout << "Ошибка! Отсутствует правый потомок.\n";
+			cout << "Вы находитесь здесь: " << thisLevelOfpyramid
+				 << " right(" << arr[parentIndex(*arrStopIndex)] << ") "
+				 << arr[*arrStopIndex] << endl;
+			return;
+		}
+		else {
+			int thisLevelOfpyramid = Level(ElementsOnLevel, Levels, *arrStopIndex);
 			*arrStopIndex = rightIndex(*arrStopIndex);
-
-			std::cout << "Вы находитесь здесь: " << thisLevelOfpyramid + 1
-				<< " right(" << arr[parentIndex(*arrStopIndex)] << ") "
-				<< arr[*arrStopIndex] << std::endl << std::endl;
+			cout << "Ок\n";
+			cout << "Вы находитесь здесь: " << thisLevelOfpyramid
+				 << " right(" << arr[parentIndex(*arrStopIndex)] << ") "
+				 << arr[*arrStopIndex] << endl;
 			return;
 		}
-	};
+	}
 };
 
-void journeyThroughThePyramid(int* arr, const int arrSize, int* ElementsOnLevel, int Levels)
-{
+void MovingOnPyramid(int* arr,  int arrSize, int* ElementsOnLevel, int Levels) {
 	int arrStopIndex = 0;
-	std::cout << "Давайте путешествовать по пирамиде:\n";
-
-
-	std::cout << "Вы находитесь здесь: 0 root" << fromIndex(arr, arrSize, arrStopIndex) << std::endl << std::endl;
-
-	bool exitFromTheJourney = false;
-	int chooseOfUser = 0;
-
-	do
-	{
-		std::cout << "Введите команду (1.Вверх, 2.Влево, 3.Вправо, 0.Выход):>";
-		std::cin >> chooseOfUser;
-		while (!std::cin.good() || chooseOfUser < 0 || chooseOfUser > 3)
-		{
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "Вы ввели неверную команду.\n";
-			std::cout << "Введите верную команду (1.Вверх, 2.Влево, 3.Вправо, 0.Выход):>";
-			std::cin >> chooseOfUser;
+	cout << "Вы находитесь здесь: 0 root " << fromIndex(arr, arrSize, arrStopIndex) << endl;
+	bool Exit = false;
+	int UserChoose = 0;
+	do {
+		cout << "Введите команду (1.Вверх, 2.Влево, 3.Вправо, 0.Выход): ";
+		cin >> UserChoose;
+		while (!cin.good() || UserChoose < 0 || UserChoose > 3)	{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Вы ввели неверную команду.\n";
+			cout << "Введите верную команду (1.Вверх, 2.Влево, 3.Вправо, 0.Выход): ";
+			cin >> UserChoose;
 		}
 
-		if (chooseOfUser == static_cast<int> (MovementsOnThePyramid::Up))
-		{
-			WhereAmI(arr, arrSize, &arrStopIndex, ElementsOnLevel, Levels, chooseOfUser);
+		if (UserChoose == static_cast<int> (MovementsOnThePyramid::Up)) {
+			CurrentPosition(arr, arrSize, &arrStopIndex, ElementsOnLevel, Levels, UserChoose);
 		}
-		else if (chooseOfUser == static_cast<int> (MovementsOnThePyramid::Left))
-		{
-			WhereAmI(arr, arrSize, &arrStopIndex, ElementsOnLevel, Levels, chooseOfUser);
+		else if (UserChoose == static_cast<int> (MovementsOnThePyramid::Left)) {
+			CurrentPosition(arr, arrSize, &arrStopIndex, ElementsOnLevel, Levels, UserChoose);
 		}
-		else if (chooseOfUser == static_cast<int> (MovementsOnThePyramid::Right))
-		{
-			WhereAmI(arr, arrSize, &arrStopIndex, ElementsOnLevel, Levels, chooseOfUser);
+		else if (UserChoose == static_cast<int> (MovementsOnThePyramid::Right)) {
+			CurrentPosition(arr, arrSize, &arrStopIndex, ElementsOnLevel, Levels, UserChoose);
 		}
-		else if (chooseOfUser == static_cast<int> (MovementsOnThePyramid::Exit))
-		{
-			std::cout << "\nДо новых встреч!\n";
-			exitFromTheJourney = true;
+		else if (UserChoose == static_cast<int> (MovementsOnThePyramid::Exit)) {
+			cout << "До свидания!\n";
+			Exit = true;
 		}
-
-		else
-		{
-			std::cout << "Выход за пределы IF-ELSE в void journeyThroughThePyramid(int* arr, const int arrSize)\n";
-		}
-
-	} while (!exitFromTheJourney);
+	} while (!Exit);
 }
 
 void MovesInPyramid(int* arr, int arrSize) {
@@ -230,7 +197,7 @@ void MovesInPyramid(int* arr, int arrSize) {
     int* ElementsOnLevel = new int[Levels] {};
 
     PrintPyramid(arr, arrSize, ElementsOnLevel, Levels);
-	journeyThroughThePyramid(arr, arrSize, ElementsOnLevel, Levels);
+	MovingOnPyramid(arr, arrSize, ElementsOnLevel, Levels);
 
     delete[] ElementsOnLevel;
     ElementsOnLevel = nullptr;
