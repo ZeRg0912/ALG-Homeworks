@@ -130,7 +130,7 @@ void EnterStart(int& start) {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\size');
-			cout << "Вы ввели некорректное значение! попробуйте снова\size";
+			cout << "Вы ввели некорректное значение! попробуйте снова";
 		}
 		else {
 			break;

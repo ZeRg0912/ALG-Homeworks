@@ -38,12 +38,12 @@ void PrintMatrix(int** arr, int size) {
     //cout << endl;
 }
 
-void DFS(int v, int componentNumber, int N, bool* visited, int** graph, int* components) {
+void DFS(int v, int componentNumber, int size, bool* visited, int** graph, int* components) {
     visited[v] = true;
     components[v] = componentNumber;
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < size; i++) {
         if (graph[v][i] && !visited[i]) {
-            DFS(i, componentNumber, N, visited, graph, components);
+            DFS(i, componentNumber, size, visited, graph, components);
         }
     }
 }
@@ -88,14 +88,23 @@ int main() {
     system("chcp 1251");
     system("cls");
 
-    int size;
+    int size, size2;
     int** graph = ReadGraphMatrix("in.txt", size);
+    int** graph2 = ReadGraphMatrix("in2.txt", size2);
 
     PrintMatrix(graph, size);
 
     FindConnectedComponents(graph, size);
 
     DeleteGraph(graph, size);
+
+    cout << "\n=============================================================\n\n";
+
+    PrintMatrix(graph2, size2);
+
+    FindConnectedComponents(graph2, size2);
+
+    DeleteGraph(graph2, size2);
 
     return 0;
 }
